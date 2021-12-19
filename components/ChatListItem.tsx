@@ -1,7 +1,8 @@
 import React from 'react';
-import {View,Text,StyleSheet,Image} from 'react-native';
+import {View,Text,StyleSheet,Image, TouchableNativeFeedback} from 'react-native';
 import { ChatRoom } from '../types';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
 
 export type ChatListItemProps = {
     chatRoom: ChatRoom
@@ -9,19 +10,30 @@ export type ChatListItemProps = {
 
 export default function ChatListItem(props: ChatListItemProps){
 
+    const navigation = useNavigation();
+
+    const goToChatRoom = () =>{
+        navigation.navigate("ChatRoom",{
+            name: props.chatRoom.users[1].name,
+            imageUri: props.chatRoom.users[1].imageUri
+        });
+    }
+
     return(
-        <View style={styles.container}>
-            <Image source={{
-                    uri: props.chatRoom.users[1].imageUri
-                }}
-                style={styles.avatar}
-            />
-            <View style={styles.chatContainer}>
-                <Text style={styles.name}>{props.chatRoom.users[1].name}</Text>
-                <Text style={styles.message} numberOfLines={1}>{props.chatRoom.lastMessage.content}</Text>
+        <TouchableNativeFeedback onPress={goToChatRoom}>
+            <View style={styles.container}>
+                <Image source={{
+                        uri: props.chatRoom.users[1].imageUri
+                    }}
+                    style={styles.avatar}
+                />
+                <View style={styles.chatContainer}>
+                    <Text style={styles.name}>{props.chatRoom.users[1].name}</Text>
+                    <Text style={styles.message} numberOfLines={1}>{props.chatRoom.lastMessage.content}</Text>
+                </View>
+                <Text style={styles.time}>{moment(props.chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}</Text>
             </View>
-            <Text style={styles.time}>{moment(props.chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}</Text>
-        </View>
+        </TouchableNativeFeedback>
     )
 
 }
@@ -31,6 +43,8 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"space-between",
         padding:15,
+        borderBottomWidth:0.5,
+        borderBottomColor:"lightgrey"
        
     },
     avatar: {

@@ -3,7 +3,12 @@ import ChatListItem from '../components/ChatListItem';
 
 import ChatRooms from '../assets/WhatsApp Asset Bundle/ChatRooms';
 
+
+
 export default function ChatScreen() {
+  
+  
+
   return (
     <View style={styles.container}>
       <FlatList

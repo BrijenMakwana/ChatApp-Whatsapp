@@ -3,10 +3,10 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable,View } from 'react-native';
+import { ColorSchemeName, Pressable,View ,Text,Image} from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -19,6 +19,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import { Ionicons,MaterialCommunityIcons,FontAwesome } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ChatRoomScreen from '../screens/ChatRoomScreen';
 
 
 
@@ -38,7 +39,14 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+
+
 function RootNavigator() {
+
+  const navigation = useNavigation();
+  const route = useNavigation();
+  
+
   return (
     <Stack.Navigator screenOptions={{
       headerStyle: {backgroundColor:Colors.light.tint},
@@ -64,7 +72,42 @@ function RootNavigator() {
 
           
         }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="ChatRoom" component={ChatRoomScreen} options = {({ route }) =>({ 
+
+          title: "",
+          headerLeft: ()=>(
+            <View style={{flexDirection: "row",alignItems:"center"}}>
+              <Ionicons name="arrow-back" size={24} color={Colors.light.background} onPress={()=>navigation.goBack()}/>
+              <Image
+                source={{
+                  uri: route.params.imageUri
+                }}
+                style={{
+                  height: 30,
+                  width: 30,
+                  borderRadius: 30,
+                  marginRight:10
+                }}
+              />
+              <View style={{justifyContent:"center"}}>
+                <Text style={{color:"white",fontWeight:"bold",fontSize:15}}>{route.params.name}</Text>
+              </View>
+            </View>
+          ),
+          headerRight: ()=>(
+            <View style={{
+              flexDirection:"row",
+              width:130,
+              justifyContent: "space-between",
+              alignItems: "center",
+              
+            }}>
+              <Ionicons name="videocam" size={24} color={Colors.light.background} />
+              <Ionicons name="md-call" size={24} color={Colors.light.background} />
+              <MaterialCommunityIcons name="dots-vertical" size={24} color={Colors.light.background}/>
+            </View>
+          )
+       })} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
