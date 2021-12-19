@@ -45,6 +45,7 @@ export type LastMessage = {
   id: string;
   content: string;
   createdAt: string;
+  user: User;
 };
 
 export type ChatRoom = {
