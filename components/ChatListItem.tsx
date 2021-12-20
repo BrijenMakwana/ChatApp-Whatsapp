@@ -27,10 +27,14 @@ export default function ChatListItem(props: ChatListItemProps){
                     }}
                     style={styles.avatar}
                 />
+
+                {/* user name and message */}
                 <View style={styles.chatContainer}>
                     <Text style={styles.name}>{props.chatRoom.users[1].name}</Text>
                     <Text style={styles.message} numberOfLines={1}>{props.chatRoom.lastMessage.content}</Text>
                 </View>
+
+                {/* time at user messaged */}
                 <Text style={styles.time}>{moment(props.chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}</Text>
             </View>
         </TouchableNativeFeedback>

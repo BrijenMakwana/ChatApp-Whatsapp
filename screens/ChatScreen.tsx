@@ -11,6 +11,8 @@ export default function ChatScreen() {
 
   return (
     <View style={styles.container}>
+
+      {/* render all the chats */}
       <FlatList
         data={ChatRooms}
         renderItem={({ item })=>(
