@@ -9,23 +9,26 @@ export default function ChatRoomScreen() {
     const route = useRoute();
 
   return (
-    <KeyboardAvoidingView behavior= "padding" style={styles.container} >
+    <View style={styles.container} >
 
       {/* background */}
         <ImageBackground source={{
             uri: '/Users/brijenmakwana/ChatAppWhatsApp/assets/WhatsApp Asset Bundle/BG.png'
         }} resizeMode="cover" style={styles.image}>
+           <KeyboardAvoidingView behavior='padding'>
+            {/* render messages */}
+            <FlatList
+              data={Chats.messages}
+              renderItem={({item})=><MessageComponent chats={item}/>} 
+              keyExtractor={item=>item.id}
+            />
           
-          {/* render messages */}
-          <FlatList
-            data={Chats.messages}
-            renderItem={({item})=><MessageComponent chats={item}/>} 
-            keyExtractor={item=>item.id}
-          />
-          <MessageInput/>
+            <MessageInput/>
+            
+          </KeyboardAvoidingView>
         
         </ImageBackground>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 

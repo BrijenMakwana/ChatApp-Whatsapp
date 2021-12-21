@@ -1,7 +1,8 @@
-import { StyleSheet ,Image, FlatList,View} from 'react-native';
+import { StyleSheet ,Text, FlatList,View} from 'react-native';
 import ChatListItem from '../components/ChatListItem';
 
 import ChatRooms from '../assets/WhatsApp Asset Bundle/ChatRooms';
+import NewMessageButton from '../components/NewMessageButton';
 
 
 
@@ -19,7 +20,9 @@ export default function ChatScreen() {
           <ChatListItem chatRoom={item}/>
         )}
         keyExtractor={item=>item.id}
+        
       />
+      <NewMessageButton/>
       
     </View>
   );
@@ -29,8 +32,5 @@ const styles = StyleSheet.create({
   container: {
    
   },
-  avatar: {
-    height:30,
-    width:30
-  },
+ 
 });
