@@ -1,43 +1,36 @@
 import React from 'react';
 import {View,Text,StyleSheet,Image, TouchableNativeFeedback} from 'react-native';
-import { ChatRoom } from '../types';
-import moment from 'moment';
+import { ChatRoom, User } from '../types';
 import { useNavigation } from '@react-navigation/native';
 
-export type ChatListItemProps = {
-    chatRoom: ChatRoom
+export type ContactItemProps = {
+    user: User
 }
 
-export default function ChatListItem(props: ChatListItemProps){
+export default function ContactItem(props: ContactItemProps){
 
     const navigation = useNavigation();
 
-    const goToChatRoom = () =>{
-        navigation.navigate("ChatRoom",{
-            name: props.chatRoom.users[1].name,
-            imageUri: props.chatRoom.users[1].imageUri
-        });
-    }
+    
 
     return(
-        <TouchableNativeFeedback onPress={goToChatRoom}>
+        <TouchableNativeFeedback>
             <View style={styles.container}>
 
                 {/* Avatar */}
                 <Image source={{
-                        uri: props.chatRoom.users[1].imageUri
+                        uri: props.user.imageUri
                     }}
                     style={styles.avatar}
                 />
 
-                {/* user name and message */}
+                {/* user name and status */}
                 <View style={styles.chatContainer}>
-                    <Text style={styles.name}>{props.chatRoom.users[1].name}</Text>
-                    <Text style={styles.message} numberOfLines={1}>{props.chatRoom.lastMessage.content}</Text>
+                    <Text style={styles.name}>{props.user.name}</Text>
+                    <Text style={styles.status} numberOfLines={1}>{props.user.status}</Text>
                 </View>
 
-                {/* time at user messaged */}
-                <Text style={styles.time}>{moment(props.chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}</Text>
+                
             </View>
         </TouchableNativeFeedback>
     )
@@ -69,12 +62,8 @@ const styles = StyleSheet.create({
         fontSize:19,
         fontWeight:"700"
     },
-    message:{
+    status:{
         fontSize:15,
         color:"grey"
-    },
-    time:{
-        fontSize:15,
-        color:"grey",
     }
   }); 

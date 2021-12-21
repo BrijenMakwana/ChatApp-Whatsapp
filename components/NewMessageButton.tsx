@@ -4,17 +4,18 @@ import {StyleSheet,TouchableOpacity} from 'react-native';
 
 import { MaterialIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 export default function NewMessageButton(){
 
-    
+    const navigation = useNavigation();
 
     return(
         
         // button for new messsage
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={()=>navigation.navigate("Contact")}>
                <MaterialIcons name="message" size={24} color="white" />
             </TouchableOpacity>
       

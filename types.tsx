@@ -17,6 +17,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   ChatRoom: undefined;
+  Contact: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -39,6 +40,7 @@ export type User = {
   id: string;
   name: string;
   imageUri: string;
+  status: string;
 };
 
 export type LastMessage = {

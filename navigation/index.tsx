@@ -20,6 +20,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { Ionicons,MaterialCommunityIcons,FontAwesome } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ChatRoomScreen from '../screens/ChatRoomScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 
 
@@ -44,7 +45,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
 
   const navigation = useNavigation();
-  const route = useNavigation();
   
 
   return (
@@ -108,6 +108,11 @@ function RootNavigator() {
             </View>
           )
        })} />
+       <Stack.Screen name="Contact" component={ContactScreen} options={{
+         title: "Select contact",
+         headerBackTitleVisible: false,
+         headerTitleAlign: "left"
+       }}/>
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
